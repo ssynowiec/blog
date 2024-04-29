@@ -3,6 +3,7 @@ import { PrismicPreview } from '@prismicio/next';
 import { repositoryName } from '@/prismicio';
 import { type ReactNode } from 'react';
 import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 
 const RootLayout = ({
 	children,
@@ -16,6 +17,7 @@ const RootLayout = ({
 					<Navigation />
 					{children}
 					<PrismicPreview repositoryName={repositoryName} />
+					<Footer />
 				</div>
 			</body>
 		</html>
