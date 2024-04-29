@@ -1,0 +1,59 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Cillum aliqua cupidatat et tempor dolor proident laborum duis. Excepteur velit occaecat eu esse mollit excepteur sunt enim consequat cupidatat deserunt quis. Proident officia reprehenderit reprehenderit."
+						}
+					}
+				]
+			},
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1587905069134-008460d7a636",
+					"width": 3935,
+					"height": 5894
+				},
+				"url": "https://images.unsplash.com/photo-1587905069134-008460d7a636",
+				"width": 3935,
+				"height": 5894,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"credits": null,
+				"alt": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Eiusmod excepteur fugiat laboris elit ipsum in excepteur anim sit Lorem cillum commodo occaecat."
+						}
+					}
+				]
+			},
+			"publication_date": {
+				"__TYPE__": "FieldContent",
+				"type": "Date",
+				"value": "2022-03-28"
+			}
+		},
+		"items": []
+	}
+]
