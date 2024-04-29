@@ -1,11 +1,11 @@
-import { Client, Content, isFilled } from '@prismicio/client';
+import { isFilled } from '@prismicio/client';
 import { PrismicLink } from '@prismicio/react';
+import { type ReactElement } from 'react';
+import { createClient } from '@/prismicio';
 
-export const Navigation = async ({
-	client,
-}: {
-	client: Client<Content.AllDocumentTypes>;
-}): Promise<JSX.Element> => {
+export const Navigation = async (): Promise<ReactElement> => {
+	const client = createClient();
+	
 	const navigation = await client.getSingle('navigation');
 
 	return (

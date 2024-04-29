@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { SliceZone } from '@prismicio/react';
@@ -9,7 +9,6 @@ import { components } from '@/slices';
 import { PrismicNextImage } from '@prismicio/next';
 import { PostCard } from '@/components/PostCard';
 import { RichText } from '@/components/RichText';
-import { Navigation } from '@/components/Navigation';
 
 type Params = { uid: string };
 
@@ -17,11 +16,11 @@ type Params = { uid: string };
  * This page renders a Prismic Document dynamically based on the URL.
  */
 
-export async function generateMetadata({
+const generateMetadata = async ({
 	params,
 }: {
 	params: Params;
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
 	const client = createClient();
 	const page = await client
 		.getByUID('blog_post', params.uid)
@@ -39,9 +38,9 @@ export async function generateMetadata({
 			],
 		},
 	};
-}
+};
 
-export default async function Page({ params }: { params: Params }) {
+const Page = async ({ params }: { params: Params }) => {
 	const client = createClient();
 
 	// Fetch the current blog post page being displayed by the UID of the page
@@ -69,8 +68,6 @@ export default async function Page({ params }: { params: Params }) {
 
 	return (
 		<div className="flex w-full max-w-3xl flex-col gap-12">
-			<Navigation client={client} />
-
 			{/* Display the "hero" section of the blog post */}
 			<section className="flex flex-col gap-12">
 				<div className="flex w-full flex-col items-center gap-3">
@@ -103,13 +100,13 @@ export default async function Page({ params }: { params: Params }) {
 					<PostCard key={post.id} post={post} />
 				))}
 			</section>
-
-			<Navigation client={client} />
 		</div>
 	);
-}
+};
 
-export async function generateStaticParams() {
+export default Page;
+
+export const generateStaticParams = async () => {
 	const client = createClient();
 
 	/**
@@ -123,4 +120,4 @@ export async function generateStaticParams() {
 	return pages.map((page) => {
 		return { uid: page.uid };
 	});
-}
+};

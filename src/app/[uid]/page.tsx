@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { SliceZone } from '@prismicio/react';
@@ -13,11 +13,11 @@ type Params = { uid: string };
  * This page renders a Prismic Document dynamically based on the URL.
  */
 
-export async function generateMetadata({
+export const generateMetadata = async ({
 	params,
 }: {
 	params: Params;
-}): Promise<Metadata> {
+}): Promise<Metadata> => {
 	const client = createClient();
 	const page = await client
 		.getByUID('page', params.uid)
@@ -35,18 +35,20 @@ export async function generateMetadata({
 			],
 		},
 	};
-}
+};
 
-export default async function Page({ params }: { params: Params }) {
+const Page = async ({ params }: { params: Params }) => {
 	const client = createClient();
 	const page = await client
 		.getByUID('page', params.uid)
 		.catch(() => notFound());
 
 	return <SliceZone slices={page.data.slices} components={components} />;
-}
+};
 
-export async function generateStaticParams() {
+export default Page;
+
+export const generateStaticParams = async () => {
 	const client = createClient();
 
 	/**
@@ -62,4 +64,4 @@ export async function generateStaticParams() {
 	return pages.map((page) => {
 		return { uid: page.uid };
 	});
-}
+};
