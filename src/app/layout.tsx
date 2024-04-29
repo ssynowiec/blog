@@ -1,22 +1,21 @@
 import './styles.scss';
-import { PrismicPreview } from "@prismicio/next";
-import { repositoryName } from "@/prismicio";
-import {type ReactNode} from "react";
+import { PrismicPreview } from '@prismicio/next';
+import { repositoryName } from '@/prismicio';
+import { type ReactNode } from 'react';
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: ReactNode;
+	children: ReactNode;
 }>) {
-  return (
-      <html lang="en">
-      <body className="flex flex-col items-center bg-stone-50">
-      <div
-          className="bg-white max-w-7xl min-h-screen border-x border-solid border-gray-200 p-12 w-full flex flex-col gap-20 items-center text-slate-700">
-          {children}
-          <PrismicPreview repositoryName={repositoryName}/>
-      </div>
-      </body>
-      </html>
-  );
+	return (
+		<html lang="en">
+			<body className="flex flex-col items-center bg-stone-50">
+				<div className="flex min-h-screen w-full max-w-7xl flex-col items-center gap-20 border-x border-solid border-gray-200 bg-white p-12 text-slate-700">
+					{children}
+					<PrismicPreview repositoryName={repositoryName} />
+				</div>
+			</body>
+		</html>
+	);
 }
