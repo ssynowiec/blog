@@ -16,7 +16,7 @@ type Params = { uid: string };
  * This page renders a Prismic Document dynamically based on the URL.
  */
 
-const generateMetadata = async ({
+export const generateMetadata = async ({
 	params,
 }: {
 	params: Params;
@@ -43,7 +43,6 @@ const generateMetadata = async ({
 const Page = async ({ params }: { params: Params }) => {
 	const client = createClient();
 
-	// Fetch the current blog post page being displayed by the UID of the page
 	const page = await client
 		.getByUID('blog_post', params.uid)
 		.catch(() => notFound());
@@ -76,7 +75,9 @@ const Page = async ({ params }: { params: Params }) => {
 							{new Date(publication_date || '').toLocaleDateString()}
 						</p>
 						<div className="text-center">
-							<RichText field={title} />
+							<h1 className="text-4xl font-bold">
+								<RichText field={title} />
+							</h1>
 						</div>
 					</div>
 					<div className="text-center">
@@ -90,10 +91,8 @@ const Page = async ({ params }: { params: Params }) => {
 				/>
 			</section>
 
-			{/* Display the content of the blog post */}
 			<SliceZone slices={slices} components={components} />
-
-			{/* Display the Recommended Posts section using the posts we requested earlier */}
+			
 			<h2 className="text-3xl font-bold">Recommended Posts</h2>
 			<section className="grid w-full max-w-3xl grid-cols-1 gap-8">
 				{posts.map((post) => (
