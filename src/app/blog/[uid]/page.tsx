@@ -9,12 +9,16 @@ import { components } from '@/slices';
 import { PrismicNextImage } from '@prismicio/next';
 import { PostCard } from '@/components/PostCard';
 import { RichText } from '@/components/RichText';
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 
 type Params = { uid: string };
-
-/**
- * This page renders a Prismic Document dynamically based on the URL.
- */
 
 export const generateMetadata = async ({
 	params,
@@ -27,7 +31,7 @@ export const generateMetadata = async ({
 		.catch(() => notFound());
 
 	return {
-		title: prismic.asText(page.data.title),
+		title: `${prismic.asText(page.data.title)} | ssynowiec.pl`,
 		description: page.data.meta_description,
 		openGraph: {
 			title: page.data.meta_title || undefined,
@@ -67,13 +71,30 @@ const Page = async ({ params }: { params: Params }) => {
 
 	return (
 		<div className="flex w-full max-w-3xl flex-col gap-12">
-			{/* Display the "hero" section of the blog post */}
 			<section className="flex flex-col gap-12">
 				<div className="flex w-full flex-col items-center gap-3">
 					<div className="flex flex-col items-center gap-6">
 						<p className="w-min border-b-2 pb-1 opacity-75">
 							{new Date(publication_date || '').toLocaleDateString()}
 						</p>
+						<Breadcrumb>
+							<BreadcrumbList>
+								<BreadcrumbItem>
+									<BreadcrumbLink href="/">Home</BreadcrumbLink>
+								</BreadcrumbItem>
+								<BreadcrumbSeparator />
+								<BreadcrumbItem>
+									<BreadcrumbLink href="/blog">Blog</BreadcrumbLink>
+								</BreadcrumbItem>
+								<BreadcrumbSeparator />
+								<BreadcrumbItem>
+									<BreadcrumbPage>
+										<RichText field={title} />
+									</BreadcrumbPage>
+								</BreadcrumbItem>
+							</BreadcrumbList>
+						</Breadcrumb>
+
 						<div className="text-center">
 							<h1 className="text-4xl font-bold">
 								<RichText field={title} />
@@ -92,7 +113,7 @@ const Page = async ({ params }: { params: Params }) => {
 			</section>
 
 			<SliceZone slices={slices} components={components} />
-			
+
 			<h2 className="text-3xl font-bold">Recommended Posts</h2>
 			<section className="grid w-full max-w-3xl grid-cols-1 gap-8">
 				{posts.map((post) => (
@@ -108,14 +129,8 @@ export default Page;
 export const generateStaticParams = async () => {
 	const client = createClient();
 
-	/**
-	 * Query all Documents from the API, except the homepage.
-	 */
 	const pages = await client.getAllByType('blog_post');
 
-	/**
-	 * Define a path for every Document.
-	 */
 	return pages.map((page) => {
 		return { uid: page.uid };
 	});
