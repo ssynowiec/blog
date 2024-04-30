@@ -64,8 +64,7 @@ const Page = async ({ params }: { params: Params }) => {
 		],
 		limit: 2,
 	});
-
-	// Destructure out the content of the current page
+	
 	const { slices, title, publication_date, description, featured_image } =
 		page.data;
 
